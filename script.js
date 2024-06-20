@@ -1,25 +1,21 @@
-let red = 100;
-let green = 100;
-let blue = 100;
+const characters = "0123456789ABCDEFGHIJKLMNOPRSTUWXYZ";
+const countMarks = 1000;
+const howManyChar = 10;
 
-document.body.style.backgroundColor = `rgb(${red}, ${green}, ${blue})`;
+const btn = document.querySelector("button");
+const section = document.querySelector("section");
 
-const color = function (e) {
-  if (e.keyCode === 38) {
-    if (red <= 255) {
-      red++;
-      green++;
-      blue++;
-      document.body.style.backgroundColor = `rgb(${red}, ${green}, ${blue})`;
+let generate = function () {
+  for (let i = 0; i < countMarks; i++) {
+    let drawChar = "";
+    for (let i = 0; i < howManyChar; i++) {
+      let index = Math.floor(Math.random() * characters.length);
+      drawChar += characters[index];
     }
-  } else if (e.keyCode === 40) {
-    if (red <= 255) {
-      red--;
-      green--;
-      blue--;
-      document.body.style.backgroundColor = `rgb(${red}, ${green}, ${blue})`;
-    }
+    const div = document.createElement("div");
+    div.textContent = drawChar;
+    section.appendChild(div);
   }
 };
 
-window.addEventListener("keydown", color);
+btn.addEventListener("click", generate);
