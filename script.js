@@ -1,21 +1,44 @@
-const characters = "0123456789ABCDEFGHIJKLMNOPRSTUWXYZ";
-const countMarks = 1000;
-const howManyChar = 10;
+let basket = [];
 
-const btn = document.querySelector("button");
-const section = document.querySelector("section");
+const add = document.querySelector(".add");
+const reset = document.querySelector(".reset");
+const showItem = document.querySelector(".showItem");
+const showOp = document.querySelector(".showOp");
+const div = document.querySelector(".message");
+const input = document.querySelector("input");
 
-let generate = function () {
-  for (let i = 0; i < countMarks; i++) {
-    let drawChar = "";
-    for (let i = 0; i < howManyChar; i++) {
-      let index = Math.floor(Math.random() * characters.length);
-      drawChar += characters[index];
-    }
-    const div = document.createElement("div");
-    div.textContent = drawChar;
-    section.appendChild(div);
-  }
+// Adding the preventDefault method so that the button
+// doesn't refresh the page. Adding the entered value to the array.
+const addOp = (e) => {
+  e.preventDefault();
+  const valueInput = input.value;
+  basket.push(valueInput);
+  window.alert("You added to your basket" + " " + valueInput);
+  input.value = "";
 };
+add.addEventListener("click", addOp);
 
-btn.addEventListener("click", generate);
+// Reset button clearing the array.
+const resetOp = (e) => {
+  e.preventDefault();
+  basket = [];
+  console.log(basket);
+  input.value = "";
+};
+reset.addEventListener("click", resetOp);
+
+// Selecting a random product from the array - basket
+// by the index of the array.
+const randomAdvice = (e) => {
+  e.preventDefault();
+  const index = Math.floor(Math.random() * basket.length);
+  div.textContent = basket[index];
+};
+showItem.addEventListener("click", randomAdvice);
+
+// Showing an alert with products in the basket.
+const show = (e) => {
+  e.preventDefault();
+  window.alert(basket);
+};
+showOp.addEventListener("click", show);
